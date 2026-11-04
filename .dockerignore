@@ -1,0 +1,17 @@
+.git
+.github
+.env
+.DS_Store
+**/.DS_Store
+vendor
+tests
+quick-pay
+examples
+docs
+storage/logs/*
+storage/cache/*
+storage/sessions/*
+storage/uploads/*
+storage/installed.lock
+public/uploads/*
+!public/uploads/.htaccess
