@@ -32,6 +32,9 @@ if [ -f "$DATA/.env" ]; then
 fi
 
 chown -R www-data:www-data "$DATA"
+chown -h www-data:www-data "$APP/storage" "$APP/public/uploads"
+# خود پوشه‌ی storage و زیرپوشه‌ها حتما برای www-data قابل نوشتن باشن (نصاب هر کدوم رو جدا چک می‌کنه)
+chmod 775 "$DATA" "$DATA/storage" "$DATA/uploads" "$DATA/storage/logs" "$DATA/storage/cache" "$DATA/storage/sessions" "$DATA/storage/uploads"
 # نصاب باید بتونه .env.tmp بسازه و روی .env rename کنه
 chown www-data:www-data "$APP"
 

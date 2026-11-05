@@ -14,8 +14,13 @@ COPY docker/entrypoint.sh /usr/local/bin/cardpay-entrypoint
 RUN chmod +x /usr/local/bin/cardpay-entrypoint
 
 WORKDIR /var/www/html
-# vendor/ لازم نیست: public/index.php در نبود vendor از app/autoload.php استفاده می‌کنه.
 COPY . /var/www/html
+
+# CardPay وابستگی runtime نداره (composer.json فقط افزونه‌های PHP رو می‌خواد)، ولی نصاب
+# وجود vendor/autoload.php رو الزامی چک می‌کنه. این autoloader ساده همون app/autoload.php است.
+RUN mkdir -p vendor \
+ && printf '<?php\ndeclare(strict_types=1);\nrequire dirname(__DIR__) . "/app/autoload.php";\n' > vendor/autoload.php \
+ && php -l vendor/autoload.php
 
 # داده‌های ماندگار (.env، storage، uploads) روی volume به اسم /data نگهداری می‌شه
 VOLUME ["/data"]
